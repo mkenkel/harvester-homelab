@@ -1,0 +1,36 @@
+# Example Terraform variables file
+# Copy this to terraform.tfvars and customize for your environment
+
+# Harvester cluster access
+kubeconfig_path = "~/.kube/config"
+
+# VM configuration
+vm_name      = "ubuntu-vm"
+namespace    = "default"
+environment  = "dev"
+vm_hostname  = "ubuntu-vm"
+
+# VM resources
+cpu_cores = 2
+memory    = "4Gi"
+disk_size = "40Gi"
+
+# Harvester-specific settings
+ubuntu_image  = "default/ubuntu-20.04-server-cloudimg-amd64"
+network_name  = "default/untagged"
+storage_class = "longhorn"
+
+# Optional: Deploy additional VMs
+# additional_vms = {
+#   "web-server" = {
+#     description = "Web server VM"
+#     hostname    = "web-server"
+#     cpu_cores   = 4
+#     memory      = "8Gi"
+#     disk_size   = "80Gi"
+#     tags = {
+#       role = "web-server"
+#       tier = "frontend"
+#     }
+#   }
+# }
