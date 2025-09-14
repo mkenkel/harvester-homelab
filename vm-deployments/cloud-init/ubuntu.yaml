@@ -1,20 +1,17 @@
 #cloud-config
 hostname: ubuntu-vm
 fqdn: ubuntu-vm.local
-
 # User setup
 users:
-  - name: ubuntu
+  - name: matt
     groups: sudo
     shell: /bin/bash
     sudo: 'ALL=(ALL) NOPASSWD:ALL'
     ssh_authorized_keys:
-      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC... # Replace with your SSH public key
-
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIO1DeBLMgyWMaA6/wc4e3JzMjGEuS4Zjz5Mohd7nD0EJ matt@upshot
 # Package updates and installation
 package_update: true
 package_upgrade: true
-
 packages:
   - qemu-guest-agent
   - curl
@@ -23,23 +20,13 @@ packages:
   - htop
   - net-tools
   - openssh-server
-
 # Services to enable
 runcmd:
   - systemctl enable qemu-guest-agent
   - systemctl start qemu-guest-agent
   - systemctl enable ssh
   - systemctl start ssh
-
-# Network configuration
-network:
-  version: 2
-  ethernets:
-    ens3:
-      dhcp4: true
-
 # Timezone
 timezone: UTC
-
 # Final message
 final_message: "The system is finally up, after $UPTIME seconds"

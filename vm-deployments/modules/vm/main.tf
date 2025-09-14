@@ -45,7 +45,7 @@ resource "harvester_virtualmachine" "vm" {
     hot_plug           = false
     access_mode        = "ReadWriteOnce"
     volume_mode        = "Block"
-    storage_class_name = var.storage_class
+    #    storage_class_name = var.storage_class
   }
 
   # Cloud-init configuration

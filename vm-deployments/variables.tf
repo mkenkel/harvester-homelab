@@ -43,13 +43,13 @@ variable "disk_size" {
 variable "ubuntu_image" {
   description = "Ubuntu image to use for VM deployment"
   type        = string
-  default     = "default/ubuntu-20.04-server-cloudimg-amd64"
+  default     = "image-m5l2j"
 }
 
 variable "network_name" {
   description = "Name of the network to connect the VM to"
   type        = string
-  default     = "default/untagged"
+  default     = "default/server-vlan"
 }
 
 variable "storage_class" {

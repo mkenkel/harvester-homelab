@@ -5,10 +5,10 @@
 kubeconfig_path = "~/.kube/config"
 
 # VM configuration
-vm_name      = "ubuntu-vm"
+vm_name      = "ubuntu-test123"
 namespace    = "default"
 environment  = "dev"
-vm_hostname  = "ubuntu-vm"
+vm_hostname  = "ubuntu-test123"
 
 # VM resources
 cpu_cores = 2
@@ -16,8 +16,8 @@ memory    = "4Gi"
 disk_size = "40Gi"
 
 # Harvester-specific settings
-ubuntu_image  = "default/ubuntu-20.04-server-cloudimg-amd64"
-network_name  = "default/untagged"
+ubuntu_image  = "default/noble-server-cloudimg-amd64.img"
+network_name  = "default/server-vlan"
 storage_class = "longhorn"
 
 # Optional: Deploy additional VMs
