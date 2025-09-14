@@ -1,0 +1,20 @@
+# Example Terraform variables for Harvester VM deployment
+# Copy this file to terraform.tfvars and modify the values for your environment
+
+# Harvester cluster configuration
+harvester_kubeconfig_path = "~/.kube/config"
+
+# VM configuration
+vm_namespace = "default"
+vm_name      = "ubuntu-vm-01"
+vm_cpu       = 2
+vm_memory    = "4Gi"
+vm_disk_size = "20Gi"
+
+# Network and image configuration
+network_name = "default/vlan1"
+image_name   = "default/ubuntu-20.04"
+
+# SSH access configuration
+# Replace with your actual SSH public key
+ssh_public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC... user@hostname"
