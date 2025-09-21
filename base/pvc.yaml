@@ -1,0 +1,16 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: rancher-nutshell-rootdisk
+  namespace: default-ubuntu-2404
+  annotations:
+    harvesterhci.io/imageId: "default-ubuntu-2404/ubuntu-2404-cloud"
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 60Gi
+  volumeMode: Block
+  storageClassName: longhorn

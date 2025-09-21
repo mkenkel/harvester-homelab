@@ -1,0 +1,11 @@
+---
+apiVersion: harvesterhci.io/v1beta1
+kind: VirtualMachineImage
+metadata:
+  name: ubuntu-2404-cloud
+  namespace: default-ubuntu-2404
+spec:
+  displayName: Ubuntu 24.04 LTS Cloud Image
+  sourceType: download
+  url: >-
+    https://cloud-images.ubuntu.com/noble/current/noble-server-cloudimg-amd64.img

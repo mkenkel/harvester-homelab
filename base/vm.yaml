@@ -1,0 +1,128 @@
+---
+apiVersion: kubevirt.io/v1
+kind: VirtualMachine
+metadata:
+  name: rancher-nutshell
+  namespace: default-ubuntu-2404
+spec:
+  running: true
+  template:
+    metadata:
+      labels:
+        kubevirt.io/vm: rancher-nutshell
+    spec:
+      domain:
+        cpu:
+          cores: 4
+        memory:
+          guest: 8Gi
+        devices:
+          disks:
+            - name: rootdisk
+              disk:
+                bus: virtio
+              bootOrder: 1
+            - name: cloudinitdisk
+              disk:
+                bus: virtio
+          interfaces:
+            - name: default
+              bridge: {}
+        machine:
+          type: q35
+        features:
+          acpi: {}
+          apic: {}
+          hyperv:
+            relaxed: {}
+            vapic: {}
+            spinlocks:
+              spinlocks: 8191
+      networks:
+        - name: default
+          pod: {}
+      volumes:
+        - name: rootdisk
+          persistentVolumeClaim:
+            claimName: rancher-nutshell-rootdisk
+        - name: cloudinitdisk
+          cloudInitNoCloud:
+            userData: |
+              #cloud-config
+              hostname: rancher-nutshell
+              fqdn: rancher-nutshell.local
+
+              # User setup - REPLACE WITH YOUR SSH KEY
+              users:
+                - name: ubuntu
+                  groups: sudo, docker
+                  shell: /bin/bash
+                  sudo: 'ALL=(ALL) NOPASSWD:ALL'
+                  ssh_authorized_keys:
+                    - "REPLACE_WITH_YOUR_SSH_PUBLIC_KEY"
+
+              # Package updates and installation
+              package_update: true
+              package_upgrade: true
+              packages:
+                - qemu-guest-agent
+                - curl
+                - wget
+                - vim
+                - htop
+                - net-tools
+                - openssh-server
+                - ca-certificates
+                - gnupg
+                - lsb-release
+                - apt-transport-https
+                - software-properties-common
+
+              # Docker installation
+              runcmd:
+                # Enable and start qemu-guest-agent
+                - systemctl enable qemu-guest-agent
+                - systemctl start qemu-guest-agent
+
+                # Enable SSH
+                - systemctl enable ssh
+                - systemctl start ssh
+
+                # Install Docker
+                - >-
+                  curl -fsSL https://download.docker.com/linux/ubuntu/gpg |
+                  gpg --dearmor -o
+                  /usr/share/keyrings/docker-archive-keyring.gpg
+                - >-
+                  echo "deb [arch=amd64
+                  signed-by=/usr/share/keyrings/docker-archive-keyring.gpg]
+                  https://download.docker.com/linux/ubuntu $(lsb_release -cs)
+                  stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null
+                - apt-get update
+                - >-
+                  apt-get install -y docker-ce docker-ce-cli containerd.io
+                  docker-compose-plugin
+                - systemctl enable docker
+                - systemctl start docker
+                - usermod -aG docker ubuntu
+
+                # Prepare for Rancher (ensure K3s requirements)
+                - >-
+                  echo 'net.bridge.bridge-nf-call-iptables = 1' >>
+                  /etc/sysctl.conf
+                - >-
+                  echo 'net.bridge.bridge-nf-call-ip6tables = 1' >>
+                  /etc/sysctl.conf
+                - echo 'net.ipv4.ip_forward = 1' >> /etc/sysctl.conf
+                - sysctl -p
+
+              # Set timezone
+              timezone: UTC
+
+              # Configure cloud-init to preserve hostname
+              preserve_hostname: false
+
+              # Final message
+              final_message: >-
+                Rancher-ready Ubuntu 24.04 system is up after $UPTIME seconds.
+                Ready for Rancher deployment!
