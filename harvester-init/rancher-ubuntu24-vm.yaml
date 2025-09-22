@@ -1,0 +1,69 @@
+apiVersion: kubevirt.io/v1
+kind: VirtualMachine
+metadata:
+  name: rancher-ubuntu24
+  namespace: default # Change if needed
+spec:
+  running: true
+  template:
+    metadata:
+      labels:
+        harvester.cattle.io/creator: harvester
+    spec:
+      domain:
+        cpu:
+          cores: 2
+        devices:
+          disks:
+            - disk:
+                bus: virtio
+              name: disk-0
+            - disk:
+                bus: virtio
+              name: cloudinitdisk
+        resources:
+          requests:
+            memory: 4Gi
+      volumes:
+        - name: disk-0
+          persistentVolumeClaim:
+            claimName: rancher-ubuntu24-rootdisk
+        - name: cloudinitdisk
+          cloudInitNoCloud:
+            userData: |
+              #cloud-config
+              hostname: rancher-ubuntu24
+              ssh_authorized_keys:
+                - ssh-rsa AAAA...your-ssh-key... user@host
+              package_update: true
+              package_upgrade: true
+              packages:
+                - docker.io
+                - curl
+              runcmd:
+                - sudo systemctl enable docker
+                - sudo systemctl start docker
+                # Install Rancher (single node, for demo/dev)
+                - sudo docker run -d --restart=unless-stopped -p 80:80 -p 443:443 --name rancher rancher/rancher:latest
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: rancher-ubuntu24-rootdisk
+  namespace: default
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 40Gi
+  storageClassName: longhorn # Or your storage class
+---
+apiVersion: harvester.cattle.io/v1beta1
+kind: VirtualMachineImage
+metadata:
+  name: ubuntu-24-04
+  namespace: default
+spec:
+  displayName: ubuntu-24.04-cloudimg
+  url: https://cloud-images.ubuntu.com/noble/current/noble-server-cloudimg-amd64.img

@@ -1,0 +1,9 @@
+apiVersion: network.harvesterhci.io/v1beta1
+kind: L2VlanNetwork
+metadata:
+  name: server-vlan
+  namespace: default
+spec:
+  clusterNetwork: mgmt
+  vlanID: 15
+  routable: true # This enables routing (e.g. DHCP)
