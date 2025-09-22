@@ -1,5 +1,4 @@
 terraform {
-  required_version = ">= 1.0"
   required_providers {
     harvester = {
       source  = "harvester/harvester"
@@ -13,6 +12,6 @@ provider "harvester" {
   kubeconfig = var.kubeconfig_path
 }
 
-module "vm-images" {}
-  source = "./modules/vm-images"
+module "networking" {
+  source = "./modules/networking"
 }
