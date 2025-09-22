@@ -10,7 +10,7 @@ terraform {
   }
 }
 
-resource "harvester_virtualmachine_image" "ubuntu_2204" {
+resource "harvester_image" "ubuntu_2204" {
   name         = "ubuntu-2204"
   namespace    = "default"
   display_name = "Ubuntu 22.04"
@@ -18,7 +18,7 @@ resource "harvester_virtualmachine_image" "ubuntu_2204" {
   url          = "https://cloud-images.ubuntu.com/jammy/current/jammy-server-cloudimg-amd64.img"
 }
 
-resource "harvester_virtualmachine_image" "ubuntu_2404" {
+resource "harvester_image" "ubuntu_2404" {
   name         = "ubuntu-2404"
   namespace    = "default"
   display_name = "Ubuntu 24.04"
@@ -26,7 +26,7 @@ resource "harvester_virtualmachine_image" "ubuntu_2404" {
   url          = "https://cloud-images.ubuntu.com/noble/current/noble-server-cloudimg-amd64.img"
 }
 
-resource "harvester_virtualmachine_image" "debian_12" {
+resource "harvester_image" "debian_12" {
   name         = "debian-12"
   namespace    = "default"
   display_name = "Debian 12"
@@ -34,7 +34,7 @@ resource "harvester_virtualmachine_image" "debian_12" {
   url          = "https://cloud.debian.org/images/cloud/bookworm/latest/debian-12-genericcloud-amd64.qcow2"
 }
 
-resource "harvester_virtualmachine_image" "debian_13" {
+resource "harvester_image" "debian_13" {
   name         = "debian-13"
   namespace    = "default"
   display_name = "Debian 13"
@@ -42,7 +42,7 @@ resource "harvester_virtualmachine_image" "debian_13" {
   url          = "https://cloud.debian.org/images/cloud/trixie/latest/debian-13-genericcloud-amd64.qcow2"
 }
 
-resource "harvester_virtualmachine_image" "rockylinux_8" {
+resource "harvester_image" "rockylinux_8" {
   name         = "rockylinux-8"
   namespace    = "default"
   display_name = "Rocky Linux 8"
@@ -50,7 +50,7 @@ resource "harvester_virtualmachine_image" "rockylinux_8" {
   url          = "https://download.rockylinux.org/pub/rocky/8/images/x86_64/Rocky-8-GenericCloud.latest.x86_64.qcow2"
 }
 
-resource "harvester_virtualmachine_image" "rockylinux_9" {
+resource "harvester_image" "rockylinux_9" {
   name         = "rockylinux-9"
   namespace    = "default"
   display_name = "Rocky Linux 9"

@@ -15,3 +15,7 @@ provider "harvester" {
 module "networking" {
   source = "./modules/networking"
 }
+
+module "vm-images" {
+  source = "./modules/vm-images"
+}
