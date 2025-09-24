@@ -1,0 +1,6 @@
+---
+resources:
+  - 01-server-vlan-network.yaml
+  - 02-ubuntu24-image-add.yaml
+  - 03-pvc-rancher-ubuntu24-rootdisk.yaml
+  - 04-vm-rancher-ubuntu24.yaml

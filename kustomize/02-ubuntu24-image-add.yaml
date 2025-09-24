@@ -1,0 +1,9 @@
+---
+apiVersion: harvester.cattle.io/v1beta1
+kind: VirtualMachineImage
+metadata:
+  name: ubuntu-24-04-minimal
+  namespace: default
+spec:
+  displayName: ubuntu-24.04-minimal-cloudimg
+  url: https://cloud-images.ubuntu.com/minimal/releases/noble/release/ubuntu-24.04-minimal-cloudimg-amd64.img
