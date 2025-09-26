@@ -58,36 +58,17 @@ resource "harvester_ssh_key" "mattskeys" {
 
 resource "harvester_network" "server-vlan" {
   cluster_network_name = "mgmt"
-  config = jsonencode(
-    {
-      bridge      = "mgmt-br"
-      cniVersion  = "0.3.1"
-      ipam        = {}
-      name        = "server-vlan"
-      promiscMode = true
-      type        = "bridge"
-      vlan        = 15
-    }
-  )
-  description          = null
+  description          = "Server VLAN... For servers."
   name                 = "server-vlan"
-  namespace            = "default"
-  route_dhcp_server_ip = null
+  namespace            = "harvester-public"
   route_mode           = "auto"
-  tags                 = {}
   vlan_id              = 15
-
-  timeouts {}
-
 }
 
 resource "harvester_clusternetwork" "cluster-net" {
   description = "Yep."
   name        = "nutcluster"
   tags        = {}
-
-  timeouts {}
-
 }
 
 ################

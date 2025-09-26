@@ -3,9 +3,3 @@ variable "kubeconfig_path" {
   type        = string
   default     = "~/.kube/config"
 }
-
-variable "namespace" {
-  description = "Kubernetes namespace for the VM"
-  type        = string
-  default     = "default"
-}
