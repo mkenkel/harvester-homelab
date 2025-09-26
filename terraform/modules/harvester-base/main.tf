@@ -132,4 +132,13 @@ timezone: UTC
 final_message: "The system is finally up, after $UPTIME seconds"
 EOT
 
+  network_data = <<EOT
+# cloud-config
+# Network data
+version: 2
+ethernets:
+  eth0:
+    dhcp4: true
+
+EOT
 }
