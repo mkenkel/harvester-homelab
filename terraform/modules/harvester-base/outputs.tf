@@ -23,9 +23,9 @@ output "rockylinux_9_image" {
   value       = harvester_image.rockylinux_9.id
 }
 
-output "mattskeys_ssh_key" {
-  description = "The ID of Matt's SSH key"
-  value       = harvester_ssh_key.mattskeys.id
+output "muhkeys_ssh_key" {
+  description = "The ID of My SSH key"
+  value       = harvester_ssh_key.muhkeys.name
 }
 
 output "server_vlan_network" {

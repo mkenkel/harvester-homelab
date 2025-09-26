@@ -8,10 +8,6 @@ resource "harvester_virtualmachine" "rancher-single-node" {
   run_strategy = "RerunOnFailure"
   tags         = var.tags
 
-  ssh_keys = [
-    var.ssh_public_key
-  ]
-
   disk {
     access_mode = "ReadWriteOnce"
     boot_order  = 1

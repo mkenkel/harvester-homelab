@@ -43,16 +43,6 @@ resource "harvester_image" "rockylinux_9" {
 }
 
 ################
-# SSH Keys
-################
-
-resource "harvester_ssh_key" "mattskeys" {
-  name       = "matt"
-  namespace  = "default"
-  public_key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIO1DeBLMgyWMaA6/wc4e3JzMjGEuS4Zjz5Mohd7nD0EJ matt@upshot"
-}
-
-################
 # Networking
 ################
 
@@ -71,12 +61,27 @@ resource "harvester_clusternetwork" "cluster-net" {
 }
 
 ################
+# SSH Keys
+################
+
+resource "harvester_ssh_key" "muhkeys" {
+  name       = "matt"
+  namespace  = "default"
+  public_key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIO1DeBLMgyWMaA6/wc4e3JzMjGEuS4Zjz5Mohd7nD0EJ matt@upshot"
+}
+
+################
 # Cloud-Init (Currently stored Under Advanced >> Secrets)
 ################
 
 resource "harvester_cloudinit_secret" "cloud-config-ubuntu" {
-  name         = "cloud-config-ubuntu"
-  namespace    = "harvester-public"
+  name      = "cloud-config-ubuntu"
+  namespace = "harvester-public"
+
+  depends_on = [
+    harvester_ssh_key.muhkeys
+  ]
+
   user_data    = var.ci_user_data
   network_data = var.ci_network_data
 }

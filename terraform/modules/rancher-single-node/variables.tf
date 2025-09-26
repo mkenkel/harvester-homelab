@@ -53,11 +53,6 @@ variable "namespace" {
   type        = string
 }
 
-variable "ssh_public_key" {
-  description = "SSH public key to inject into the VM."
-  type        = string
-}
-
 variable "tags" {
   description = "Tags to assign to the virtual machine"
   type        = map(string)

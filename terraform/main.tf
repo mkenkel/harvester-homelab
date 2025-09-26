@@ -12,8 +12,8 @@ locals {
 # Load all the Harvester Defaults
 module "harvester-base" {
   source          = "./modules/harvester-base"
-  ci_user_data    = "boobah"
-  ci_network_data = "jajajaj"
+  ci_user_data    = local.ubuntu_cloud_init_user_data
+  ci_network_data = local.ubuntu_cloud_init_network_data
 }
 
 # Launch a Rancher VM
@@ -31,9 +31,8 @@ module "rancher-single-node" {
   namespace               = "harvester-public"
   network_name            = module.harvester-base.server_vlan_network
   storage_class           = "longhorn"
-  ssh_public_key          = module.harvester-base.mattskeys_ssh_key
-  cloud_init_user_data    = module.harvester-base.cloud_config_ubuntu_secret
-  cloud_init_network_data = module.harvester-base.cloud_config_ubuntu_secret
+  cloud_init_user_data    = local.ubuntu_cloud_init_user_data
+  cloud_init_network_data = local.ubuntu_cloud_init_network_data
 
   tags = {
     environment = "dev"
