@@ -44,33 +44,3 @@ module "ubuntu_vm_example" {
   }
 }
 
-# Optional: Deploy multiple VMs using for_each
-module "ubuntu_vms" {
-  source = "./modules/vm"
-
-  for_each = var.additional_vms
-
-  vm_name     = each.key
-  namespace   = var.namespace
-  description = each.value.description
-
-  cpu_cores = each.value.cpu_cores
-  memory    = each.value.memory
-  disk_size = each.value.disk_size
-
-  vm_image             = var.ubuntu_image
-  network_name         = var.network_name
-  storage_class        = var.storage_class
-  cloud_init_user_data = local.ubuntu_cloud_init
-
-  hostname = each.value.hostname
-
-  tags = merge(
-    {
-      environment = var.environment
-      project     = "harvester-homelab"
-      os          = "ubuntu"
-    },
-    each.value.tags
-  )
-}

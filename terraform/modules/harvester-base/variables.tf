@@ -1,13 +1,9 @@
-variable "ubuntu" {
-  description = "Personal Configurations for Ubuntu's Cloud-Init"
-  type = object({
-    name         = string
-    user_data    = string
-    network_data = string
-  })
-  default = {
-    name         = "ubuntu"
-    user_data    = "../../cloud-init/ubuntu.yaml"
-    network_data = ""
-  }
+variable "ci_user_data" {
+  description = "Cloud-init user data for VM initialization"
+  type        = string
+}
+
+variable "ci_network_data" {
+  description = "Cloud-init network data for VM initialization"
+  type        = string
 }

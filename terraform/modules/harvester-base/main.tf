@@ -58,17 +58,16 @@ resource "harvester_ssh_key" "mattskeys" {
 
 resource "harvester_network" "server-vlan" {
   cluster_network_name = "mgmt"
-  description          = "Server VLAN... For servers."
   name                 = "server-vlan"
+  description          = "Server VLAN... For servers."
   namespace            = "harvester-public"
   route_mode           = "auto"
   vlan_id              = 15
 }
 
 resource "harvester_clusternetwork" "cluster-net" {
-  description = "Yep."
   name        = "nutcluster"
-  tags        = {}
+  description = "Container Cluster Network... If only I had more NIC Ports....."
 }
 
 ################
@@ -76,50 +75,8 @@ resource "harvester_clusternetwork" "cluster-net" {
 ################
 
 resource "harvester_cloudinit_secret" "cloud-config-ubuntu" {
-  name      = "cloud-config-ubuntu"
-  namespace = "default"
-
-  user_data = <<EOT
-
-#cloud-config
-# User data
-users:
-  - name: matt
-    groups: sudo
-    shell: /bin/bash
-    sudo: 'ALL=(ALL) NOPASSWD:ALL'
-    ssh_authorized_keys:
-      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIO1DeBLMgyWMaA6/wc4e3JzMjGEuS4Zjz5Mohd7nD0EJ matt@upshot
-# Package updates and installation
-package_update: true
-package_upgrade: true
-packages:
-  - qemu-guest-agent
-  - curl
-  - wget
-  - vim
-  - htop
-  - net-tools
-  - openssh-server
-# Services to enable
-runcmd:
-  - systemctl enable qemu-guest-agent
-  - systemctl start qemu-guest-agent
-  - systemctl enable ssh
-  - systemctl start ssh
-# Timezone
-timezone: UTC
-# Final message
-final_message: "The system is finally up, after $UPTIME seconds"
-EOT
-
-  network_data = <<EOT
-# cloud-config
-# Network data
-version: 2
-ethernets:
-  eth0:
-    dhcp4: true
-
-EOT
+  name         = "cloud-config-ubuntu"
+  namespace    = "harvester-public"
+  user_data    = var.ci_user_data
+  network_data = var.ci_network_data
 }

@@ -1,18 +1,61 @@
 variable "vm_name" {
-  description = "Name of the virtual machine"
+  description = "Name of the virtual machine."
   type        = string
 }
 
-variable "namespace" {
-  description = "Kubernetes namespace for the VM"
+variable "disk_size" {
+  description = "Size of the VM root disk (e.g., '20Gi')."
   type        = string
-  default     = "default"
+}
+
+variable "storage_class" {
+  description = "Storage class to use for the root disk."
+  default     = "longhorn"
+  type        = string
+}
+
+variable "network_name" {
+  description = "Name of the network to attach to eth0."
+  type        = string
+}
+
+variable "cpu" {
+  description = "Number of CPUs for the VM."
+  type        = number
+  default     = 2
+}
+
+variable "memory" {
+  description = "Amount of memory for the VM (e.g., '4Gi')."
+  type        = string
+  default     = "4Gi"
+}
+
+variable "image" {
+  description = "Image to use for the VM."
+  type        = string
 }
 
 variable "description" {
-  description = "Description of the virtual machine"
+  description = "Description for the VM."
   type        = string
   default     = ""
+}
+
+# variable "hostname" {
+#   description = "Hostname for the VM."
+#   type        = string
+#   default     = ""
+# }
+
+variable "namespace" {
+  description = "Namespace to deploy the VM in."
+  type        = string
+}
+
+variable "ssh_public_key" {
+  description = "SSH public key to inject into the VM."
+  type        = string
 }
 
 variable "tags" {
@@ -21,90 +64,14 @@ variable "tags" {
   default     = {}
 }
 
-variable "cpu_cores" {
-  description = "Number of CPU cores"
-  type        = number
-  default     = 2
-}
-
-variable "memory" {
-  description = "Amount of memory in GB"
-  type        = string
-  default     = "4Gi"
-}
-
-variable "disk_size" {
-  description = "Size of the root disk"
-  type        = string
-  default     = "40Gi"
-}
-
-variable "vm_image" {
-  description = "VM image to use for deployment"
-  type        = string
-}
-
-variable "network_name" {
-  description = "Name of the network to connect the VM to"
-  type        = string
-  default     = "default/untagged"
-}
-
-variable "storage_class" {
-  description = "Storage class for the VM disk"
-  type        = string
-  default     = "longhorn"
-}
-
 variable "cloud_init_user_data" {
-  description = "Cloud-init user data for VM initialization"
-  type        = string
-}
-
-variable "hostname" {
-  description = "Hostname for the virtual machine"
+  description = "Cloud-init user data to configure the VM."
   type        = string
   default     = ""
 }
 
-variable "efi" {
-  description = "Enable EFI boot"
-  type        = bool
-  default     = false
-}
-
-variable "secure_boot" {
-  description = "Enable secure boot"
-  type        = bool
-  default     = false
-}
-
-variable "run_strategy" {
-  description = "Run strategy for the VM"
-  type        = string
-  default     = "RerunOnFailure"
-}
-
-variable "restart_after_update" {
-  description = "Restart VM after update"
-  type        = bool
-  default     = true
-}
-
-variable "reserved_memory" {
-  description = "Reserved memory for the VM"
+variable "cloud_init_network_data" {
+  description = "Cloud-init user data to configure the VM."
   type        = string
   default     = ""
-}
-
-variable "machine_type" {
-  description = "Machine type for the VM"
-  type        = string
-  default     = ""
-}
-
-variable "wait_for_lease" {
-  description = "Wait for network lease"
-  type        = bool
-  default     = true
 }
