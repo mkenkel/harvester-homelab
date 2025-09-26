@@ -12,10 +12,6 @@ provider "harvester" {
   kubeconfig = var.kubeconfig_path
 }
 
-module "networking" {
-  source = "./modules/networking"
-}
-
-module "vm-images" {
-  source = "./modules/vm-images"
+module "harvester-base" {
+  source = "./modules/harvester-base"
 }
