@@ -13,19 +13,11 @@ package_update: true
 package_upgrade: true
 packages:
   - qemu-guest-agent
-  - curl
-  - wget
-  - vim
-  - htop
-  - net-tools
   - openssh-server
 # Services to enable
 runcmd:
-  - systemctl enable qemu-guest-agent
-  - systemctl start qemu-guest-agent
+  - systemctl enable --now qemu-guest-agent.service
   - systemctl enable ssh
   - systemctl start ssh
 # Timezone
 timezone: UTC
-# Final message
-final_message: "The system is finally up, after $UPTIME seconds"

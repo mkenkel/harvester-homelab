@@ -26,7 +26,6 @@ resource "harvester_virtualmachine" "rancher-single-node" {
   }
 
   cloudinit {
-    user_data    = var.cloud_init_user_data
-    network_data = var.cloud_init_network_data
+    user_data = var.cloud_init_user_data
   }
 }
