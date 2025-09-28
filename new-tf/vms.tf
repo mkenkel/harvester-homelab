@@ -30,7 +30,7 @@ resource "harvester_virtualmachine" "rancher-single-node" {
   }
 
   cloudinit {
-    user_data = <<-EOF
+    user_data    = <<-EOF
                 #cloud-config
                 # User data
                 users:
@@ -58,6 +58,8 @@ resource "harvester_virtualmachine" "rancher-single-node" {
                   - curl
                   - gnupg
                   - lsb-release
+                  - iputils-ping
+                  - traceroute
                 runcmd:
                   - - systemctl
                     - enable
@@ -71,5 +73,11 @@ resource "harvester_virtualmachine" "rancher-single-node" {
                   - systemctl start docker
                   - docker run -d --restart=unless-stopped -p 80:80 -p 443:443 --privileged rancher/rancher:latest 
                 EOF
+    network_data = <<-EOF
+              version: 2
+              ethernets:
+                enp1s0:
+                  dhcp4: true
+              EOF
   }
 }
