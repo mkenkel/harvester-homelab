@@ -6,7 +6,7 @@ provider "harvester" {
 # Load cloud-init configuration
 locals {
   ubuntu_cloud_init_user_data = templatefile("${path.module}/cloud-init/ubuntu/user-data.tpl", {
-    ssh_key = module.harvester-base.my_pubkey
+    ssh_key = module.harvester-base.ssh_public_key
   })
   ubuntu_cloud_init_network_data = file("${path.module}/cloud-init/ubuntu/network-data.yaml")
 }
