@@ -50,6 +50,8 @@ resource "harvester_virtualmachine" "rancher-single-node" {
                 manage_etc_hosts: true
                 package_upgrade: true
                 packages:
+                  - qemu-guest-agent
+                  - vim
                   - docker.io
                   - apt-transport-https
                   - ca-certificates
@@ -57,13 +59,17 @@ resource "harvester_virtualmachine" "rancher-single-node" {
                   - gnupg
                   - lsb-release
                 runcmd:
+                  - - systemctl
+                    - enable
+                    - --now
+                    - qemu-guest-agent.service
                   - systemctl enable docker
                   - systemctl start docker
                   - curl -fsSL https://get.docker.com | sh
                   - curl -fsSL https://releases.rancher.com/install-docker/20.10.sh | sh
                   - systemctl enable docker
                   - systemctl start docker
-                  - docker run -d --restart=unless-stopped -p 80:80 -p 443:443 rancher/rancher:latest
+                  - docker run -d --restart=unless-stopped -p 80:80 -p 443:443 --privileged rancher/rancher:latest 
                 EOF
   }
 }
