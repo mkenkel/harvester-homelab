@@ -74,7 +74,7 @@ resource "harvester_ssh_key" "muhkeys" {
 # Cloud-Init (Currently stored Under Advanced >> Secrets)
 ################
 
-resource "harvester_cloudinit_secret" "cloud-config-ubuntu" {
+resource "harvester_cloudinit_secret" "cc_ubuntu" {
   name      = "cloud-config-ubuntu"
   namespace = "harvester-public"
 
@@ -84,4 +84,5 @@ resource "harvester_cloudinit_secret" "cloud-config-ubuntu" {
 
   user_data    = var.ci_user_data
   network_data = var.ci_network_data
+
 }

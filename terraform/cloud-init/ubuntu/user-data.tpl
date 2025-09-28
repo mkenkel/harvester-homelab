@@ -2,13 +2,19 @@
 #cloud-config
 # User data
 users:
-  - name: matt
+  - name: ubuntu
+    create_home: true
     groups: sudo
+    home: /home/ubuntu
+    lock_passwd: false
+    passwd_expire: false
+    plain_text_passwd: ubuntu
     shell: /bin/bash
     sudo: 'ALL=(ALL) NOPASSWD:ALL'
-    ssh_authorized_keys:
-      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIO1DeBLMgyWMaA6/wc4e3JzMjGEuS4Zjz5Mohd7nD0EJ matt@upshot
-# Package updates and installation
+
+ssh_authorized_keys:
+  - >-
+    ${ssh_key}
 package_update: true
 package_upgrade: true
 packages:
@@ -16,7 +22,10 @@ packages:
   - openssh-server
 # Services to enable
 runcmd:
-  - systemctl enable --now qemu-guest-agent.service
+  - - systemctl
+    - enable
+    - --now
+    - qemu-guest-agent.service
   - systemctl enable ssh
   - systemctl start ssh
 # Timezone

@@ -23,9 +23,9 @@ output "rockylinux_9_image" {
   value       = harvester_image.rockylinux_9.id
 }
 
-output "muhkeys_ssh_key" {
+output "my_pubkey" {
   description = "The ID of My SSH key"
-  value       = harvester_ssh_key.muhkeys.name
+  value       = harvester_ssh_key.muhkeys.public_key
 }
 
 output "server_vlan_network" {
@@ -38,7 +38,7 @@ output "cluster_net_clusternetwork" {
   value       = harvester_clusternetwork.cluster-net.id
 }
 
-output "cloud_config_ubuntu_secret" {
+output "cc_secret" {
   description = "The ID of the cloud-config secret for Ubuntu"
-  value       = harvester_cloudinit_secret.cloud-config-ubuntu.name
+  value       = harvester_cloudinit_secret.cc_ubuntu.name
 }
