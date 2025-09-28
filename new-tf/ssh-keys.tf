@@ -1,7 +1,6 @@
 ################
 # SSH Keys
 ################
-
 resource "harvester_ssh_key" "muhkeys" {
   name       = "matt"
   namespace  = "default"
