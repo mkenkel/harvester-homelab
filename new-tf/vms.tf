@@ -4,7 +4,7 @@ resource "harvester_virtualmachine" "rancher-single-node" {
   namespace    = "harvester-public"
   description  = "Rancher Single Node VM"
   cpu          = "2"
-  memory       = "4Gi"
+  memory       = "8Gi"
   run_strategy = "RerunOnFailure"
   tags = {
     environment = "dev"
